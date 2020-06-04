@@ -8,7 +8,7 @@ We also provide the creation method of LMDB, which is space-saving and loading-f
 
 Intro: continuous SL, sign gloss
 
-Link: [Homepage](https://www-i6.informatik.rwth-aachen.de/~koller/RWTH-PHOENIX/), [Download_link](https://bit.ly/3cuie5R), [Paper (CVIU'2015)](https://www-i6.informatik.rwth-aachen.de/publications/download/996/Koller-CVIU-2015.pdf)
+Link: [Homepage](https://www-i6.informatik.rwth-aachen.de/~koller/RWTH-PHOENIX/), [Download](https://bit.ly/3cuie5R), [Paper (CVIU'2015)](https://www-i6.informatik.rwth-aachen.de/publications/download/996/Koller-CVIU-2015.pdf)
 
 ### phoenix-2014-multisigner
 
@@ -30,7 +30,7 @@ python scripts/lmdb_ph14_hand_rgb.py -s .../trackedRightHand-92x132px -t .../ph1
 
 Intro: continuous SL, sign gloss, German translation
 
-Link: [Homepage](https://www-i6.informatik.rwth-aachen.de/~koller/RWTH-PHOENIX-2014-T/), [Download_link](https://bit.ly/306gzRB), [Paper (CVPR'2018)](http://openaccess.thecvf.com/content_cvpr_2018/papers/Camgoz_Neural_Sign_Language_CVPR_2018_paper.pdf)
+Link: [Homepage](https://www-i6.informatik.rwth-aachen.de/~koller/RWTH-PHOENIX-2014-T/), [Download](https://bit.ly/306gzRB), [Paper (CVPR'2018)](http://openaccess.thecvf.com/content_cvpr_2018/papers/Camgoz_Neural_Sign_Language_CVPR_2018_paper.pdf)
 
 Prepare LMDB Database:
 
