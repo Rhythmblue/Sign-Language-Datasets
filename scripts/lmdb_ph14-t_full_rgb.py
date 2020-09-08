@@ -29,13 +29,23 @@ class Video3D(object):
         self.length = info_dict['length']
         self.tag = tag
 
+        self.tmp_path = info_dict['tmp_path']
+        if self.tmp_path != '':
+            folder = os.path.join(self.tmp_path, self.name)
+            if not os.path.exists(folder):
+                os.makedirs(folder)
+
     def load_img(self, path, idx):
         tmp = Image.open(path).convert('RGB')
-        tmp_name = os.path.join('./tmp_proc', '{:s}_{:d}.jpg'.format(self.name, idx))
+        if self.tmp_path == '':
+            tmp_name = os.path.join('./tmp_proc', '{:s}_{:d}.jpg'.format(self.name, idx))
+        else:
+            tmp_name = os.path.join(self.tmp_path, self.name, '{:06d}.jpg'.format(idx))
         tmp = tmp.resize((224, 224), Image.BICUBIC)
         tmp.save(tmp_name)
         rt = [open(tmp_name, 'rb').read()]
-        os.remove(tmp_name)
+        if self.tmp_path == '':
+            os.remove(tmp_name)
         return rt
 
     def get_cover_frames(self):
@@ -71,16 +81,17 @@ def collate_fn_fullvideo(batch):
     return clip[0], name[0], length[0]
 
 
-def load_info(data_path):
+def load_info(data_path, tmp_path):
     infos = []
     for task in ['train', 'dev', 'test']:
-        data = pickle.load(open('data/phoenix-2014-t/{:s}.pkl'.format(task), 'rb'))
+        data = pickle.load(open('data/phoenix2014T/{:s}.pkl'.format(task), 'rb'))
         task_info = []
         for _, row in enumerate(data):
             video_info = {
                 'name': row[0],
                 'path': os.path.join(data_path, task, row[0], '*.png'),
                 'length': row[1],
+                'tmp_path': tmp_path,
             }
             task_info.append(video_info)
         infos.append(task_info)
@@ -89,7 +100,7 @@ def load_info(data_path):
 
 
 def main(opts):
-    infos = load_info(opts.source_path)
+    infos = load_info(opts.source_path, opts.target_tmp_path)
 
     dataset = [
         FullVideoDateset(infos[0], tag='rgb'),
@@ -123,9 +134,10 @@ def main(opts):
 
 def parse_args():
     p = argparse.ArgumentParser(description='slr')
-    p.add_argument('-s', '--source_path', type=str, default='', help='source path of original data [fullFrame-210x260px]')
-    p.add_argument('-t', '--target_path', type=str, default='', help='target path of lmdb') 
+    p.add_argument('source_path', type=str, default='', help='source path of original data [fullFrame-210x260px]')
+    p.add_argument('target_path', type=str, default='', help='target path of lmdb') 
     p.add_argument('-nw', '--num_workers', type=int, default=4, help='num_workers of dataloader')
+    p.add_argument('-tt', '--target_tmp_path', type=str, default='', help='target path of resized images') 
     parameter = p.parse_args()    
     return  parameter
 
