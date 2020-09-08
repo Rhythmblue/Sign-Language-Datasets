@@ -12,7 +12,7 @@ usage: lmdb_dataset_modality.py [-h] [-nw NUM_WORKERS] [-tt TARGET_TMP_PATH] sou
 
 - `source_path`: the path where original data stored
 - `target_path`: the path where lmdb will be stored
-- `target_tmp_path`: the path where transformed images stored. If `-tt ...` not set, temporal `.jpg` file will be deleted after stored in LMDB.
+- `target_tmp_path`: the path where transformed images stored. If `-tt ...` not set, temporary `.jpg` file will be deleted after stored in LMDB.
 
 ## RWTH-PHOENIX-Weather 2014 (German SL)
 
