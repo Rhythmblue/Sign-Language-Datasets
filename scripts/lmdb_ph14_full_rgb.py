@@ -125,7 +125,7 @@ def main(opts):
         for i, (clip, name, length) in enumerate(loader[k]):
             assert len(clip) == length
             for j in range(length):
-                key = task+'/'+name+'/'+'{:06d}'.format(j)
+                key = name+'/'+'{:06d}'.format(j)
                 txn.put(key=key.encode(), value=clip[j])
             print('{:d}/{:d}, {:d}, {:s}'.format(i+1, len(infos[k]), length, key))
     txn.commit()
